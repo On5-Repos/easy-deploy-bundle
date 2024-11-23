@@ -1,5 +1,5 @@
 {
-    "name": "easycorp/easy-deploy-bundle",
+    "name": "easycorp/easy-deploy-bundle-v2",
     "type": "symfony-bundle",
     "description": "The easiest way to deploy Symfony applications",
     "keywords": ["deploy", "deployment", "deployer"],
