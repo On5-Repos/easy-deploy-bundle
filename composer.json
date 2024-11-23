@@ -1,5 +1,5 @@
 {
-    "name": "symfony/easy-deploy-bundle-v2",
+    "name": "on5-repos/easy-deploy-bundle-v2",
     "type": "symfony-bundle",
     "description": "The easiest way to deploy Symfony applications",
     "keywords": ["deploy", "deployment", "deployer"],
