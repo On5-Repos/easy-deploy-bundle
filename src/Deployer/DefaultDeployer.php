@@ -19,6 +19,7 @@ use EasyCorp\Bundle\EasyDeployBundle\Requirement\CommandExists;
 use EasyCorp\Bundle\EasyDeployBundle\Server\Property;
 use EasyCorp\Bundle\EasyDeployBundle\Server\Server;
 use EasyCorp\Bundle\EasyDeployBundle\Task\TaskCompleted;
+use RuntimeException;
 
 abstract class DefaultDeployer extends AbstractDeployer
 {
@@ -153,7 +154,7 @@ abstract class DefaultDeployer extends AbstractDeployer
             $numReleases = count(array_filter(explode("\n", $result->getOutput())));
 
             if ($numReleases < 2) {
-                throw new \RuntimeException(sprintf('The application cannot be rolled back because the "%s" server has only 1 release and it\'s not possible to roll back to a previous version.', $result->getServer()));
+                throw new RuntimeException(sprintf('The application cannot be rolled back because the "%s" server has only 1 release and it\'s not possible to roll back to a previous version.', $result->getServer()));
             }
         }
     }
@@ -224,6 +225,7 @@ abstract class DefaultDeployer extends AbstractDeployer
         if (null === $server->get(Property::console_bin)) {
             throw new InvalidConfigurationException(sprintf('The "console" binary of your Symfony application is not available in any of the following directories: %s. Configure the "binDir" option and set it to the directory that contains the "console" binary.', implode(', ', $symfonyConsoleBinaries)));
         }
+        throw new InvalidConfigurationException(sprintf('The "console" binary of your Symfony application is not available in any of the following directories: %s. Configure the "binDir" option and set it to the directory that contains the "console" binary.', implode(', ', $symfonyConsoleBinaries)));
     }
 
     private function createRemoteDirectoryLayout(): void

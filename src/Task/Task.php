@@ -12,6 +12,7 @@
 namespace EasyCorp\Bundle\EasyDeployBundle\Task;
 
 use EasyCorp\Bundle\EasyDeployBundle\Server\Server;
+use InvalidArgumentException;
 
 class Task
 {
@@ -23,7 +24,7 @@ class Task
     public function __construct(array $servers, string $shellCommand, array $envVars = [])
     {
         if (empty($servers)) {
-            throw new \InvalidArgumentException('The "servers" argument of a Task cannot be an empty array. Add at least one server.');
+            throw new InvalidArgumentException('The "servers" argument of a Task cannot be an empty array. Add at least one server.');
         }
 
         $this->servers = $servers;

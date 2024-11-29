@@ -13,6 +13,7 @@ namespace EasyCorp\Bundle\EasyDeployBundle\Server;
 
 use EasyCorp\Bundle\EasyDeployBundle\Exception\ServerConfigurationException;
 use EasyCorp\Bundle\EasyDeployBundle\Helper\Str;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class Server
@@ -59,7 +60,7 @@ class Server
         $resolved = preg_replace_callback('/(\{\{\s*(?<propertyName>.+)\s*\}\})/U', function (array $matches) use ($definedProperties, $expression) {
             $propertyName = trim($matches['propertyName']);
             if (!$definedProperties->has($propertyName)) {
-                throw new \InvalidArgumentException(sprintf('The "%s" property in "%s" expression is not a valid server property.', $propertyName, $expression));
+                throw new InvalidArgumentException(sprintf('The "%s" property in "%s" expression is not a valid server property.', $propertyName, $expression));
             }
 
             return $definedProperties->get($propertyName);

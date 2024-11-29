@@ -11,7 +11,9 @@
 
 namespace EasyCorp\Bundle\EasyDeployBundle\Exception;
 
-class InvalidConfigurationException extends \InvalidArgumentException
+use InvalidArgumentException;
+
+class InvalidConfigurationException extends InvalidArgumentException
 {
     public function __construct(string $message)
     {

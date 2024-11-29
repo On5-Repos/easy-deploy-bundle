@@ -13,6 +13,8 @@ namespace EasyCorp\Bundle\EasyDeployBundle\Command;
 
 use EasyCorp\Bundle\EasyDeployBundle\Context;
 use EasyCorp\Bundle\EasyDeployBundle\Helper\SymfonyConfigPathGuesser;
+use JetBrains\PhpStorm\NoReturn;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,9 +26,9 @@ use Symfony\Component\HttpKernel\Config\FileLocator;
 
 class DeployCommand extends Command
 {
-    private $fileLocator;
-    private $projectDir;
-    private $logDir;
+    private FileLocator $fileLocator;
+    private string|false $projectDir;
+    private string $logDir;
     private $configFilePath;
 
     public function __construct(FileLocator $fileLocator, string $projectDir, string $logDir)
@@ -38,7 +40,7 @@ class DeployCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('deploy')
@@ -54,7 +56,7 @@ class DeployCommand extends Command
     {
         $customConfigPath = $input->getOption('configuration');
         if (null !== $customConfigPath && !is_readable($customConfigPath)) {
-            throw new \RuntimeException(sprintf("The given configuration file ('%s') does not exist or it's not readable.", $customConfigPath));
+            throw new RuntimeException(sprintf("The given configuration file ('%s') does not exist or it's not readable.", $customConfigPath));
         }
 
         if (null !== $customConfigPath && is_readable($customConfigPath)) {
@@ -81,7 +83,7 @@ class DeployCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function createDefaultConfigFile(InputInterface $input, OutputInterface $output, string $defaultConfigPath, string $stageName): void
+    #[NoReturn] private function createDefaultConfigFile(InputInterface $input, OutputInterface $output, string $defaultConfigPath, string $stageName): void
     {
         $helper = $this->getHelper('question');
         $question = new ConfirmationQuestion(sprintf("\n<bg=yellow> WARNING </> There is no config file to deploy '%s' stage.\nDo you want to create a minimal config file for it? [Y/n] ", $stageName), true);

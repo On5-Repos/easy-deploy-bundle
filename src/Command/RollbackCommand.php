@@ -13,6 +13,7 @@ namespace EasyCorp\Bundle\EasyDeployBundle\Command;
 
 use EasyCorp\Bundle\EasyDeployBundle\Context;
 use EasyCorp\Bundle\EasyDeployBundle\Helper\SymfonyConfigPathGuesser;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -49,7 +50,7 @@ class RollbackCommand extends Command
     {
         $customConfigPath = $input->getOption('configuration');
         if (null !== $customConfigPath && !is_readable($customConfigPath)) {
-            throw new \RuntimeException(sprintf("The given configuration file ('%s') does not exist or it's not readable.", $customConfigPath));
+            throw new RuntimeException(sprintf("The given configuration file ('%s') does not exist or it's not readable.", $customConfigPath));
         }
 
         if (null !== $customConfigPath && is_readable($customConfigPath)) {
@@ -61,7 +62,7 @@ class RollbackCommand extends Command
             return $this->configFilePath = $defaultConfigPath;
         }
 
-        throw new \RuntimeException(sprintf("The default configuration file does not exist or it's not readable, and no custom configuration file was given either. Create the '%s' configuration file and run this command again.", $defaultConfigPath));
+        throw new RuntimeException(sprintf("The default configuration file does not exist or it's not readable, and no custom configuration file was given either. Create the '%s' configuration file and run this command again.", $defaultConfigPath));
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

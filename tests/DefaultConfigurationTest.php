@@ -13,6 +13,7 @@ namespace EasyCorp\Bundle\EasyDeployBundle\Tests;
 
 use EasyCorp\Bundle\EasyDeployBundle\Configuration\DefaultConfiguration;
 use EasyCorp\Bundle\EasyDeployBundle\Exception\InvalidConfigurationException;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 class DefaultConfigurationTest extends TestCase
@@ -41,7 +42,7 @@ class DefaultConfigurationTest extends TestCase
         ;
     }
 
-    public function provideHttpRepositoryUrls(): ?\Generator
+    public function provideHttpRepositoryUrls(): ?Generator
     {
         yield ['http://github.com/symfony/symfony-demo.git'];
         yield ['https://github.com/symfony/symfony-demo.git'];

@@ -12,6 +12,7 @@
 namespace EasyCorp\Bundle\EasyDeployBundle\Tests;
 
 use EasyCorp\Bundle\EasyDeployBundle\Helper\Str;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 class StrTest extends TestCase
@@ -58,7 +59,7 @@ TABLE;
         $this->assertSame($result, Str::formatAsTable($values));
     }
 
-    public function startsWithProvider(): ?\Generator
+    public function startsWithProvider(): ?Generator
     {
         yield ['', '', false];
         yield ['abc', '', false];
@@ -71,7 +72,7 @@ TABLE;
         yield ['<h1>a</> bc', 'a', false];
     }
 
-    public function endsWithProvider(): ?\Generator
+    public function endsWithProvider(): ?Generator
     {
         yield ['', '', true];
         yield ['abc', '', false];
@@ -84,7 +85,7 @@ TABLE;
         yield ['ab <h1>c</>', 'c', false];
     }
 
-    public function containsProvider(): ?\Generator
+    public function containsProvider(): ?Generator
     {
         yield ['', '', false];
         yield ['abc', '', false];
@@ -102,7 +103,7 @@ TABLE;
         yield ['ab <h1>c</>', 'ab c', false];
     }
 
-    public function prefixProvider(): ?\Generator
+    public function prefixProvider(): ?Generator
     {
         yield ['', '', ''];
         yield ['aaa', 'xxx', 'xxxaaa'];
@@ -110,7 +111,7 @@ TABLE;
         yield [['aaa', 'bbb', 'ccc'], 'xxx', "xxxaaa\nxxxbbb\nxxxccc"];
     }
 
-    public function stringifyProvider(): ?\Generator
+    public function stringifyProvider(): ?Generator
     {
         yield ['', ''];
         yield [fopen('php://memory', 'r+'), 'PHP Resource'];

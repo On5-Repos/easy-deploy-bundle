@@ -12,6 +12,9 @@
 namespace EasyCorp\Bundle\EasyDeployBundle\Configuration;
 
 use EasyCorp\Bundle\EasyDeployBundle\Helper\Str;
+use InvalidArgumentException;
+use ReflectionException;
+use ReflectionObject;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
@@ -38,7 +41,7 @@ final class ConfigurationAdapter
     public function get(string $optionName)
     {
         if (!$this->getOptions()->has($optionName)) {
-            throw new \InvalidArgumentException(sprintf('The "%s" option is not defined.', $optionName));
+            throw new InvalidArgumentException(sprintf('The "%s" option is not defined.', $optionName));
         }
 
         return $this->getOptions()->get($optionName);
@@ -55,14 +58,10 @@ final class ConfigurationAdapter
         // a config builder and the IDE autocompletion. Here we need to access
         // those private properties and their values
         $options = new ParameterBag();
-        $r = new \ReflectionObject($this->config);
+        $r = new ReflectionObject($this->config);
         foreach ($r->getProperties() as $property) {
-            try {
-                $property->setAccessible(true);
-                $options->set($property->getName(), $property->getValue($this->config));
-            } catch (\ReflectionException $e) {
-                // ignore this error
-            }
+            $property->setAccessible(true);
+            $options->set($property->getName(), $property->getValue($this->config));
         }
 
         return $this->options = $options;

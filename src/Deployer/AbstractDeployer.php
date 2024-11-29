@@ -23,6 +23,7 @@ use EasyCorp\Bundle\EasyDeployBundle\Server\ServerRepository;
 use EasyCorp\Bundle\EasyDeployBundle\Task\Task;
 use EasyCorp\Bundle\EasyDeployBundle\Task\TaskCompleted;
 use EasyCorp\Bundle\EasyDeployBundle\Task\TaskRunner;
+use Exception;
 
 abstract class AbstractDeployer
 {
@@ -60,7 +61,7 @@ abstract class AbstractDeployer
             $this->log('Executing <hook>beforeFinishingDeploy</> hook');
             $this->beforeFinishingDeploy();
             $this->log('<h1>Finishing the deployment</>');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('<error>[ERROR] Cancelling the deployment and reverting the changes</>');
             $this->log(sprintf('<error>A log file with all the error details has been generated in %s</>', $this->context->getLogFilePath()));
 
@@ -86,7 +87,7 @@ abstract class AbstractDeployer
             $this->log('Executing <hook>beforeFinishingRollback</> hook');
             $this->beforeFinishingRollback();
             $this->log('<h1>Finishing the rollback</>');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->log('<error>[ERROR] The roll back failed because of the following error</>');
             $this->log(sprintf('<error>A log file with all the error details has been generated in %s</>', $this->context->getLogFilePath()));
 

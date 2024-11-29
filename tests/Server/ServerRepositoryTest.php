@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace EasyCorp\Bundle\EasyDeployBundle\EasyDeployBundle\Tests;
+namespace EasyCorp\Bundle\EasyDeployBundle\Tests\Server;
 
 use EasyCorp\Bundle\EasyDeployBundle\Server\Server;
 use EasyCorp\Bundle\EasyDeployBundle\Server\ServerRepository;

@@ -11,6 +11,8 @@
 
 namespace EasyCorp\Bundle\EasyDeployBundle\Helper;
 
+use RuntimeException;
+
 /**
  * @author Jules Pietri <jules@heahprod.com>
  */
@@ -29,6 +31,6 @@ class SymfonyConfigPathGuesser
             return sprintf('%s/deploy_%s.php', $configDir, $stage);
         }
 
-        throw new \RuntimeException(sprintf('None of the usual Symfony config dirs exist in the application. Create one of these dirs before continuing: "%s" or "%s".', self::CONFIG_DIR, self::LEGACY_CONFIG_DIR));
+        throw new RuntimeException(sprintf('None of the usual Symfony config dirs exist in the application. Create one of these dirs before continuing: "%s" or "%s".', self::CONFIG_DIR, self::LEGACY_CONFIG_DIR));
     }
 }
